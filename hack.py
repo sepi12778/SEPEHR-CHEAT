@@ -4,7 +4,7 @@ import datetime
 import itertools
 import math
 
-# ====== رنگ‌ها ======
+
 RESET = "\033[0m"
 BOLD = "\033[1m"
 RED = "\033[31m"
@@ -60,7 +60,7 @@ def ascii_logo():
     print(f"{MAGENTA}{logo}{RESET}")
 
 def rainbow_title(text, step):
-    """عنوان رنگین‌کمانی"""
+    
     colored = ""
     for i, c in enumerate(text):
         color = RAINBOW[(i + step) % len(RAINBOW)]
@@ -68,7 +68,7 @@ def rainbow_title(text, step):
     return colored
 
 def gradient_fps(fps, t):
-    """ایجاد رنگ گرادیانی برای FPS"""
+    
     phase = (math.sin(t) + 1) / 2  # مقدار ۰ تا ۱
     index = int(phase * (len(RAINBOW) - 1))
     return f"{RAINBOW[index]}FPS:{RESET} {fps:.1f}"
