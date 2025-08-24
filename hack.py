@@ -3,8 +3,9 @@ import time
 import datetime
 import itertools
 import math
+import re
 
-
+# رنگ‌ها
 RESET = "\033[0m"
 BOLD = "\033[1m"
 RED = "\033[31m"
@@ -17,13 +18,13 @@ MAGENTA = "\033[35m"
 RAINBOW = [RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA]
 WIDTH = 70
 
+# کاراکترهای باکس
 BOX_TL, BOX_TR, BOX_BL, BOX_BR, BOX_H, BOX_V = "╔", "╗", "╚", "╝", "═", "║"
 
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
 def len_no_ansi(s: str) -> int:
-    import re
     return len(re.sub(r"\x1b\[[0-9;]*m", "", s))
 
 def box_line(text=""):
@@ -50,17 +51,16 @@ def loading_animation():
 
 def ascii_logo():
     logo = f"""
-   ███████╗███████╗██████╗ ██████╗ ██╗  ██╗██████╗ 
-   ██╔════╝██╔════╝██╔══██╗██╔═══██╗██║ ██╔╝██╔══██╗
-   █████╗  █████╗  ██████╔╝██║   ██║█████╔╝ ██████╔╝
-   ██╔══╝  ██╔══╝  ██╔═══╝ ██║   ██║██╔═██╗ ██╔═══╝ 
-   ██║     ███████╗██║     ╚██████╔╝██║  ██╗██║     
-   ╚═╝     ╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     
+  ███████╗███████╗██████╗ ██████╗ ██╗  ██╗██████╗ 
+  ██╔════╝██╔════╝██╔══██╗██╔═══██╗██║ ██╔╝██╔══██╗
+  ███████╗█████╗  ██████╔╝██║   ██║█████╔╝ ██████╔╝
+  ╚════██║██╔══╝  ██╔═══╝ ██║   ██║██╔═██╗ ██╔═══╝ 
+  ███████║███████╗██║     ╚██████╔╝██║  ██╗██║     
+  ╚══════╝╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     
 """
-    print(f"{MAGENTA}{logo}{RESET}")
+    print(f"{BOLD}{MAGENTA}{logo}{RESET}")
 
 def rainbow_title(text, step):
-    
     colored = ""
     for i, c in enumerate(text):
         color = RAINBOW[(i + step) % len(RAINBOW)]
@@ -68,14 +68,13 @@ def rainbow_title(text, step):
     return colored
 
 def gradient_fps(fps, t):
-    
-    phase = (math.sin(t) + 1) / 2  # مقدار ۰ تا ۱
+    phase = (math.sin(t) + 1) / 2
     index = int(phase * (len(RAINBOW) - 1))
     return f"{RAINBOW[index]}FPS:{RESET} {fps:.1f}"
 
-def header(flash=True, step=0):
-    bypass_text = f"bypass: {GREEN}ON{RESET}" if flash else f"{YELLOW}ON{RESET}"
+def header(step=0):
     title = rainbow_title("⚡ SEPEHR CHEAT ⚡", step)
+    bypass_text = f"bypass: {GREEN}ON{RESET}"
     return [
         title,
         bypass_text,
@@ -93,7 +92,6 @@ def main():
         "Ping fix": True,
     }
 
-    flash_toggle = True
     loading_animation()
     prev_time = time.time()
     step = 0
@@ -109,12 +107,11 @@ def main():
 
             clear()
             ascii_logo()
-            draw_box(header(flash=flash_toggle, step=step))
-            flash_toggle = not flash_toggle
+            draw_box(header(step=step))
             step += 1
 
             print()
-            for k, v in states.items():
+            for k in states:
                 print(f" - {k:<20}: {GREEN}ON{RESET}")
 
             now = datetime.datetime.now().strftime("%H:%M:%S")
