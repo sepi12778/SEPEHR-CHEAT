@@ -37,11 +37,7 @@ local toggles = {
     AntiAFK = false,
     ClickDelete = false,
     ESP = false,
-    AutoMoney = false,
-    HackPanel = false,
-    ClickTeleport = false,
-    PlayerTP = false,
-    TeleportOthers = false
+    ClickTeleport = false
 }
 
 -- ===== بارگذاری مودهای جداگانه =====
@@ -58,10 +54,6 @@ local toggleAntiAFK = require(script.Parent.AntiAFK)
 local toggleClickDelete = require(script.Parent.ClickDelete)
 local toggleClickTeleport = require(script.Parent.ClickTeleport)
 local espModule = require(script.Parent.ESP)
-local autoMoneyModule = require(script.Parent.AutoMoney)
-local playerTPModule = require(script.Parent.PlayerTP)
-local teleportOthersModule = require(script.Parent.TeleportOthers)
-local hackPanelModule = require(script.Parent.HackPanel)
 
 -- مقداردهی اولیه مودها
 toggleFly = toggleFly(toggles, connections, notify, LocalPlayer)
@@ -74,10 +66,6 @@ toggleAntiAFK = toggleAntiAFK(toggles, connections, notify, LocalPlayer)
 toggleClickDelete = toggleClickDelete(toggles, connections, notify, LocalPlayer)
 toggleClickTeleport = toggleClickTeleport(toggles, connections, notify, LocalPlayer)
 local toggleESP, updateESP = espModule(toggles, notify)
-local toggleAutoMoney, SetAutoMoneyRemote = autoMoneyModule(toggles, notify)
-local togglePlayerTP = playerTPModule(toggles, connections, notify, LocalPlayer)
-local toggleTeleportOthers = teleportOthersModule(toggles, connections, notify, LocalPlayer)
-local toggleHackPanel = hackPanelModule(toggles, notify, SetAutoMoneyRemote)
 
 -- اجرای بروزرسانی‌های مداوم
 RunService.RenderStepped:Connect(updateESP)
