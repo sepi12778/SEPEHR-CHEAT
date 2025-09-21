@@ -46,7 +46,7 @@ local toggles = {
 
 local toggleFly = require(script.Parent.Fly)
 local toggleSpeed = require(script.Parent.Speed)
-local toggleInfiniteJump = require(script.Parent.InfiniteJump)
+local toggleInfiniteJump = require(https://raw.githubusercontent.com/sepi12778/SEPEHR-CHEAT/refs/heads/main/InfiniteJump.lua)
 local toggleNoClip = require(script.Parent.NoClip)
 local toggleGodMode = require(script.Parent.GodMode)
 local toggleInvisibility = require(script.Parent.Invisibility)
